@@ -21,12 +21,16 @@
 
 // start();
 
+// this is a function where when you enter node index.js in the terminal it will give you an option to play two game 1. guess the number or 2. reverse guess the number
+
 const readline = require("readline");
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
+// this function is to give you an option to play 2 games of your choice in the terminal.
 
 function startGameMenu() {
   console.log("Welcome! Choose a game:");

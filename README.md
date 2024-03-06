@@ -87,7 +87,7 @@ Your number was 66!
 
 **Then** the computer modifies the range it guesses within based on the answer
 
-e.g. 
+e.g.
 
 ```
 Is your number 41? no
@@ -108,7 +108,7 @@ If the number is higher, you'll want to modify the low end of the range, and vic
 
 ## Make it smarter
 
-* In the *optimal* solution, the game will find the correct number in no more than `[log2(n)+1]` guesses -- so for n=100, that's 7 guesses *max*. This solution is a good example of a *binary search algorithm*. 
+* In the *optimal* solution, the game will find the correct number in no more than `[log2(n)+1]` guesses -- so for n=100, that's 7 guesses *max*. This solution is a good example of a *binary search algorithm*.
 
 **Given** The player chooses a number between 1 and 100
 
@@ -138,8 +138,8 @@ If the number is higher, you'll want to modify the low end of the range, and vic
 
 ## Role Reversal!
 
-Now try and create the reverse game where the computer picks a number, and you guess it. Create a new file called `reverse_game.js` to hold this program 
-   
+Now try and create the reverse game where the computer picks a number, and you guess it. Create a new file called `reverse_game.js` to hold this program
+
 **Given** The game has been started with `node reverse_game.js`
 
 **Then** the game will ask you to guess a number

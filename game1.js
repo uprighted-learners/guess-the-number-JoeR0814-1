@@ -1,61 +1,94 @@
-const readline = require("readline");
+// this is the guess the number
+// to play this game open the Index.js file and choose to play
 
-const rl = readline.createInterface({
+const readline = require("readline");
+// this will allow the user to input there answers
+const readlineInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-let maxAttempts = 7;
-let attempts = 0;
-let secretNumber;
+let range = 1;
+let minRange = 1;
+let maxRange = 100;
+let tries = 0;
+let guess = 1;
 
-function startGame() {
-  secretNumber = Math.floor(Math.random() * 100) + 1;
-  attempts = 0;
-  console.log("Welcome to the Guess the Number game!");
-  askForGuess();
+if (!process.argv[2]) {
+  maxRange = 100;
+} else {
+  maxRange = +process.argv[2];
 }
 
-function askForGuess() {
-  rl.question("Guess a number between 1 and 100: ", (userInput) => {
-    const userGuess = parseInt(userInput);
+const setRange = () => {
+  range = maxRange - minRange + 1;
+};
 
-    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
-      console.log("Please enter a valid number between 1 and 100.");
-      askForGuess();
-    } else {
-      attempts++;
-      console.log(`You have ${maxAttempts - attempts} guesses left.`);
-      checkGuess(userGuess);
-    }
-  });
-}
-
-function checkGuess(userGuess) {
-  if (attempts === maxAttempts) {
-    console.log("You're out of guesses! Game over.");
-    playAgain();
-  } else if (userGuess === secretNumber) {
-    console.log("Congratulations! You guessed the correct number!");
-    playAgain();
-  } else if (userGuess < secretNumber) {
-    console.log("Too low, try again.");
-    askForGuess();
-  } else {
-    console.log("Too high, try again.");
-    askForGuess();
+const updateGuess = () => {
+  tries++;
+  setRange();
+  guess = Math.round((minRange + maxRange - 1) / 2);
+  if (guess === 1) {
+    guess = 1;
   }
-}
+};
 
-function playAgain() {
-  rl.question("Do you want to play again? (yes/no): ", (answer) => {
-    if (answer.toLowerCase().trim() === "yes") {
-      startGame();
-    } else {
-      console.log("Thank you for playing! Goodbye.");
-      rl.close();
-    }
+const checkForWin1 = () => {
+  let yesNo;
+  setRange();
+  if (range === 1) {
+    console.log(`It is ${guess}!`);
+    console.log(`I guessed it in ${tries} tries.`);
+    process.exit();
+  }
+};
+
+const checkForWin2 = () => {
+  let yesNo;
+  setRange();
+  if (range === 2) {
+    console.log(`It is ${guess + 1}!`);
+    console.log(`I guessed it in ${tries} tries.`);
+    process.exit();
+  }
+};
+
+const ask = (questionText) =>
+  new Promise((resolve, reject) => {
+    readlineInterface.question(questionText, resolve);
   });
-}
 
-startGame();
+const start = async () => {
+  while (true) {
+    checkForWin1();
+    let yesNo = (await ask(`Is it... ${guess}? `)).toUpperCase();
+    if (yesNo === "N") {
+      checkForWin2();
+      let highLow = (
+        await ask("Is it higher (H), or lower (L)? ")
+      ).toUpperCase();
+      if (highLow === "H") {
+        minRange = guess + 1;
+        updateGuess();
+      } else if (highLow === "L") {
+        maxRange = guess - 1;
+        updateGuess();
+      } else {
+        console.log("Please enter H/L");
+      }
+    } else if (yesNo === "Y") {
+      console.log(`Your number was ${guess}!`);
+      console.log(`I guessed it in ${tries} tries.`);
+      process.exit();
+    } else {
+      console.log("Please enter Y/N");
+    }
+  }
+};
+
+// Start a new game
+console.log(`Please think of a number between 1 and ${maxRange} (inclusive)`);
+console.log(`I will try to guess it.`);
+
+updateGuess();
+start();
