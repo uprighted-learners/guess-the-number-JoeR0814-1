@@ -1,5 +1,3 @@
-// this is reverse guess the number, open the index.js file to play this game
-
 const readline = require("readline");
 
 const rl = readline.createInterface({
@@ -8,17 +6,16 @@ const rl = readline.createInterface({
 });
 // how many tries the get
 let maxAttempts = 7;
-
 let attempts = 0;
-// the secret number the computer will choose
-// let secretNumber;
 
 // this will start the game as well as the secret number
 function startGame() {
   // the secret number that will generate
   secretNumber = Math.floor(Math.random() * 100) + 1;
   attempts = 0;
-  console.log("Welcome to Reverse Guess the Number game!");
+  console.log(
+    "Welcome to Reverse Guess the Number. The computer will have a secret number the player has to try and guess, the secret number will be between 1 and 100, the player will have 6 tries to guess the secret number your guesses will be tracked and if you run out of guesses the game will End and you will be told game over!"
+  );
   askForGuess();
 }
 

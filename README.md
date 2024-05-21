@@ -160,10 +160,9 @@ When the game finishes, instead of exiting, it should ask you if you want to pla
 
 When the game finishes modify the victory message so it tells the user how many guesses it took for the computer to guess the correct number.
 
-**Combine the games**
 
-Modify the program in `index.js` so that the user can choose whether to play the normal game, or the reverse game when the program is started with `node index.js`
 
+`http://localhost:8080/messages/rooms/${roomId}
 ## Third Party References
 
 * https://www.khanacademy.org/computing/computer-science/algorithms/intro-to-algorithms/a/a-guessing-game - this page has a nice visualization of the game (click on the numbers in the box there) and nicely describes the binary search algorithm
